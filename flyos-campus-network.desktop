@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Exec=/usr/bin/flyos-campus-network %u
+Icon=flyos-clipboard
+StartupNotify=true
+Terminal=false
+Categories=Utility;
+OnlyShowIn=Deepin;
+MimeType=inode/directory;
+
+Name=clipboard
+Name[zh_CN]=校园网客户端
