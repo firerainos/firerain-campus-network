@@ -17,7 +17,8 @@ pkg_check_modules(DTK REQUIRED
         dtkwidget
         )
 
-set(QRC_FILES)
+set(QRC_FILES
+        images/images.qrc)
 
 set(SOURCE_FILES
         main.cpp
