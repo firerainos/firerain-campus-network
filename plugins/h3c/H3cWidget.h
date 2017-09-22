@@ -10,15 +10,17 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QComboBox>
+#include <QtCore/QProcess>
 
 class H3cWidget : public QFrame{
     Q_OBJECT
 public:
-    H3cWidget(QWidget *parent = nullptr);
+    explicit H3cWidget(QWidget *parent = nullptr);
 
 private:
     QLineEdit *usernameEdit;
     QLineEdit *passwdEdit;
+    QLineEdit *reconnectEdit;
     QLineEdit *versionEdit;
 
     QComboBox *deviceBox;
@@ -26,7 +28,23 @@ private:
 
     QPushButton *startButton;
 
+    QProcess *c3hProcess;
+
     void initUI();
+
+    void initConnect();
+
+    void initAllDeviceList();
+
+    void setEditEnable(bool enable);
+
+private Q_SLOT:
+
+    void startConnect();
+
+    void c3hProOutput();
+    void c3hProError();
+    void c3hFinished(int exitCode);
 
 };
 
