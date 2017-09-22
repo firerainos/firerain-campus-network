@@ -1,7 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
     <qresource prefix="/images">
-        <file>h3c.ico</file>
         <file>logo.png</file>
     </qresource>
 </RCC>

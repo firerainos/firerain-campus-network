@@ -3,10 +3,14 @@
 //
 
 #include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QStackedLayout>
-#include <QtWidgets/QStackedWidget>
+#include <QtCore/QDir>
 #include "mainwindow.h"
-#include "pages/H3cPage.h"
+#include <QApplication>
+#include <QtCore/QLibrary>
+#include <QPluginLoader>
+#include <QtWidgets/QFrame>
+
+#include <QDebug>
 
 mainwindow::mainwindow(QWidget *parent) :
         DMainWindow(parent) {
@@ -17,15 +21,48 @@ mainwindow::mainwindow(QWidget *parent) :
 
     leftWidget = new LeftWidget(this);
 
-    QStackedLayout *stackedLayout = new QStackedLayout(this);
-
-    H3cPage *h3cPage = new H3cPage(this);
-
-    stackedLayout->addWidget(h3cPage);
+    stackedLayout = new QStackedLayout(this);
 
     mainLayout->addWidget(leftWidget);
     mainLayout->addLayout(stackedLayout);
 
     this->setCentralWidget(mainFrame);
+
+    loadPlugins();
+}
+
+void mainwindow::loadPlugins() {
+#ifdef QT_DEBUG
+    const QDir pluginsDir(QApplication::applicationDirPath() + "/plugins");
+#else
+    const QDir pluginsDir( "/usr/lib/flyos-campus-network/plugins");
+#endif
+    const QStringList plugins = pluginsDir.entryList(QDir::Files);
+    for (const QString file : plugins) {
+        if (!QLibrary::isLibrary(pluginsDir.absoluteFilePath(file)))
+            continue;
+
+        auto *loader = new QPluginLoader(pluginsDir.absoluteFilePath(file), this);
+
+        qDebug() << loader->instance();
+
+        PluginsInterface *plugin = qobject_cast<PluginsInterface *>(loader->instance());
+
+        if (!plugin)
+            continue;
+
+        qCritical() << "load plugins " + file;
+
+        pluginsList << plugin;
+
+        qDebug() << plugin->pluginsName();
+
+        stackedLayout->addWidget(plugin->pluginsWidget());
+
+        leftWidget->addItem(plugin->pluginsName(), plugin->pluginsLogo());
+
+
+    }
+
 }
 

@@ -2,8 +2,8 @@
 // Created by linux on 17-9-13.
 //
 
-#ifndef FLYOS_CAMPUS_NETWORK_H3CPAGE_H
-#define FLYOS_CAMPUS_NETWORK_H3CPAGE_H
+#ifndef FLYOS_CAMPUS_NETWORK_H3CWIDGET_H
+#define FLYOS_CAMPUS_NETWORK_H3CWIDGET_H
 
 
 #include <QtWidgets/QFrame>
@@ -11,10 +11,10 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QComboBox>
 
-class H3cPage : public QFrame{
+class H3cWidget : public QFrame{
     Q_OBJECT
 public:
-    H3cPage(QWidget *parent = nullptr);
+    H3cWidget(QWidget *parent = nullptr);
 
 private:
     QLineEdit *usernameEdit;
@@ -26,7 +26,9 @@ private:
 
     QPushButton *startButton;
 
+    void initUI();
+
 };
 
 
-#endif //FLYOS_CAMPUS_NETWORK_H3CPAGE_H
+#endif //FLYOS_CAMPUS_NETWORK_H3CWIDGET_H

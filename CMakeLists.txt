@@ -25,11 +25,11 @@ set(SOURCE_FILES
         ui/mainwindow.cpp
         ui/mainwindow.h
         ui/widgets/LeftWidget.cpp
-        ui/widgets/LeftWidget.h
-        ui/pages/H3cPage.cpp
-        ui/pages/H3cPage.h)
+        ui/widgets/LeftWidget.h interfaces/pluginsInterface.h)
 
 include_directories(${DTK_INCLUDE_DIRS})
+
+add_subdirectory(plugins)
 
 add_executable(flyos-campus-network  ${SOURCE_FILES} ${QRC_FILES})
 target_link_libraries(flyos-campus-network Qt5::Core Qt5::Gui Qt5::Widgets ${DTK_LIBRARIES})

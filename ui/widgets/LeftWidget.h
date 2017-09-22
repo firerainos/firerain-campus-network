@@ -14,11 +14,11 @@ Q_OBJECT
 public:
     explicit LeftWidget(QWidget *parent = nullptr);
 
-
+    void addItem(QString name,QPixmap logo);
 
 private:
 struct item {
-    QString icon;
+    QPixmap icon;
     QString name;
 };
 

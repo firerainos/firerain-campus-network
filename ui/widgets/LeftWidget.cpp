@@ -13,23 +13,20 @@ LeftWidget::LeftWidget(QWidget *parent) :
     QWidget(parent){
     this->setFixedSize(160, 500);
 
-    item h3c;
-    h3c.name = "华三认证";
-    h3c.icon = "";
+//    item h3c;
+//    h3c.name = "华三认证";
+//    h3c.icon = "";
+//
+//    item drcom;
+//    drcom.name = "Dr.com";
+//    drcom.icon = "";
+//
+//    item fsurfing;
+//    fsurfing.name = "佛大广东天翼校园";
+//    fsurfing.icon = "";
 
-    item drcom;
-    drcom.name = "Dr.com";
-    drcom.icon = "";
 
-    item fsurfing;
-    fsurfing.name = "佛大广东天翼校园";
-    fsurfing.icon = "";
 
-    items << h3c;
-    items << drcom;
-    items << fsurfing;
-
-    currentTitle = "华三认证";
 }
 
 void LeftWidget::paintEvent(QPaintEvent *event) {
@@ -61,7 +58,9 @@ void LeftWidget::paintEvent(QPaintEvent *event) {
             painter.setPen(QPen(QColor("#32464A")));
         }
 
-        painter.drawText(20, tabY, items[i].name);
+        painter.drawText(48, tabY, items[i].name);
+
+        painter.drawPixmap(12, tabY - 18 ,items[i].icon.scaled(25,25,Qt::KeepAspectRatio));
 
         tabY += height;
     }
@@ -75,4 +74,18 @@ void LeftWidget::mouseReleaseEvent(QMouseEvent *event) {
         }
 
     }
+}
+
+void LeftWidget::addItem(QString name,QPixmap logo) {
+    item item1;
+    item1.name = name;
+    item1.icon = logo;
+
+
+    if (currentTitle.isEmpty())
+        currentTitle = item1.name;
+
+    items << item1;
+
+    update();
 }

@@ -6,7 +6,10 @@
 #define FLYOS_CAMPUS_NETWORK_MAINWINDOW_H
 
 #include <DMainWindow>
+#include <QtWidgets/QStackedLayout>
+
 #include "widgets/LeftWidget.h"
+#include "../interfaces/pluginsInterface.h"
 
 DWIDGET_USE_NAMESPACE
 
@@ -17,6 +20,11 @@ public:
 
 private:
     LeftWidget *leftWidget;
+    QStackedLayout *stackedLayout;
+
+    QList<PluginsInterface *> pluginsList;
+
+    void loadPlugins();
 
 };
 
