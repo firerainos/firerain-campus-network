@@ -36,10 +36,9 @@ void LeftWidget::paintEvent(QPaintEvent *event) {
     painter.setPen(QPen(QColor(235, 235, 235)));
     painter.drawRect(this->width() - 1, 0, 1, 500);
 
-//    painter.setPen(QColor(202, 202, 202, 200));
-//    painter.drawRect(QRect(this->width(), 0, 1, this->height()));
+    painter.drawPixmap(35, 10, QPixmap(":/images/logo.png").scaled(80,80,Qt::KeepAspectRatioByExpanding));
 
-    int tabY = 80;
+    int tabY = 140;
     for (int i = 0; i < items.length(); i++) {
         int width = 160;
         int height = 30;
@@ -68,7 +67,7 @@ void LeftWidget::paintEvent(QPaintEvent *event) {
 
 void LeftWidget::mouseReleaseEvent(QMouseEvent *event) {
     for (int i = items.length() -1; i >= 0; i--) {
-        if (event->y() >= 80 + (i - 1)* 30) {
+        if (event->y() >= 140 + (i - 1) * 30) {
             currentTitle = items[i].name;
             repaint();
             emit itemChange(i);
