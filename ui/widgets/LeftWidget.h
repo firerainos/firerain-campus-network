@@ -16,6 +16,10 @@ public:
 
     void addItem(QString name,QPixmap logo);
 
+Q_SIGNALS:
+
+    void itemChange(int index);
+
 private:
 struct item {
     QPixmap icon;

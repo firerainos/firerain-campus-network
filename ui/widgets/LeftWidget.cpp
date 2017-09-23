@@ -68,8 +68,10 @@ void LeftWidget::paintEvent(QPaintEvent *event) {
 
 void LeftWidget::mouseReleaseEvent(QMouseEvent *event) {
     for (int i = items.length() -1; i >= 0; i--) {
-        if (event->y() >= 80 + i * 30) {
-//            emit currentTitleChange(items[i].subTitle[j], currentTitle);
+        if (event->y() >= 80 + (i - 1)* 30) {
+            currentTitle = items[i].name;
+            repaint();
+            emit itemChange(i);
             return;
         }
 

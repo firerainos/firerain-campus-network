@@ -27,6 +27,8 @@ mainwindow::mainwindow(QWidget *parent) :
     mainLayout->addWidget(leftWidget);
     mainLayout->addLayout(stackedLayout);
 
+    connect(leftWidget, &LeftWidget::itemChange, this, &mainwindow::itemChange);
+
     this->setCentralWidget(mainFrame);
 
     scanPlugins();
@@ -72,7 +74,7 @@ void mainwindow::scanPlugins() {
 }
 
 void mainwindow::loadPlugins(QString plugPath) {
-
+    qDebug() << plugPath;
     auto *loader = new QPluginLoader(plugPath, this);
 
     PluginsInterface *plugin = qobject_cast<PluginsInterface *>(loader->instance());
@@ -84,11 +86,13 @@ void mainwindow::loadPlugins(QString plugPath) {
 
     pluginsList << plugin;
 
-    qDebug() << plugin->pluginsName();
-
     stackedLayout->addWidget(plugin->pluginsWidget());
 
     leftWidget->addItem(plugin->pluginsName(), plugin->pluginsLogo());
+}
+
+void mainwindow::itemChange(int index) {
+    stackedLayout->setCurrentIndex(index);
 }
 
 
