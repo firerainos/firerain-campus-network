@@ -34,12 +34,20 @@ mainwindow::mainwindow(QWidget *parent) :
 
 void mainwindow::scanPlugins() {
 #ifdef QT_DEBUG
-    const QDir pluginsDir(QApplication::applicationDirPath() + "/plugins");
+    QDir pluginsDir(QApplication::applicationDirPath() + "/plugins");
 #else
-    const QDir pluginsDir( QDir::currentPath() +"/../lib/flyos-campus-network/plugins");
+    QDir pluginsDir( QDir::currentPath() +"/../lib/flyos-campus-network/plugins");
 #endif
 
     QStringList plugins = pluginsDir.entryList(QDir::Files);
+
+    for (const QString file : plugins) {
+        if (!QLibrary::isLibrary(pluginsDir.absoluteFilePath(file)))
+            continue;
+
+        loadPlugins(pluginsDir.absoluteFilePath(file));
+
+    }
 
     QString confPath = (QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first());
 
@@ -48,7 +56,9 @@ void mainwindow::scanPlugins() {
                + "/" + QApplication::applicationName()
                + "/plugins";
 
-    plugins << QDir(confPath).entryList(QDir::Files);
+    pluginsDir = QDir(confPath);
+
+    plugins = QDir(confPath).entryList(QDir::Files);
 
     for (const QString file : plugins) {
         if (!QLibrary::isLibrary(pluginsDir.absoluteFilePath(file)))
@@ -65,8 +75,6 @@ void mainwindow::loadPlugins(QString plugPath) {
 
     auto *loader = new QPluginLoader(plugPath, this);
 
-    qDebug() << loader->instance();
-
     PluginsInterface *plugin = qobject_cast<PluginsInterface *>(loader->instance());
 
     if (!plugin)
@@ -78,6 +86,7 @@ void mainwindow::loadPlugins(QString plugPath) {
 
     qDebug() << plugin->pluginsName();
 
+    qDebug() << plugin->pluginsWidget();
     stackedLayout->addWidget(plugin->pluginsWidget());
 
     leftWidget->addItem(plugin->pluginsName(), plugin->pluginsLogo());
