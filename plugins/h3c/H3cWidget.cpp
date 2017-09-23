@@ -13,7 +13,7 @@
 H3cWidget::H3cWidget(QWidget *parent) :
     QFrame(parent){
 
-    c3hProcess = new QProcess(this);
+    h3cThread = new H3cThread;
 
     initUI();
 
@@ -60,6 +60,10 @@ void H3cWidget::initUI() {
     startButton = new QPushButton("连接",this);
     startButton->setFixedSize(150, 35);
 
+    logDisplay = new QTextBrowser(this);
+    logDisplay->setMinimumWidth(500);
+    logDisplay->setVisible(false);
+
     auto *usernameLayout = new QHBoxLayout(this);
     auto *passwdLayout = new QHBoxLayout(this);
     auto *reconnectLayout = new QHBoxLayout(this);
@@ -99,6 +103,7 @@ void H3cWidget::initUI() {
     mainLayout->addLayout(reconnectLayout);
     mainLayout->addLayout(deviceLayout);
     mainLayout->addLayout(versionLayout);
+    mainLayout->addWidget(logDisplay, 1);
     mainLayout->addSpacing(20);
     mainLayout->addWidget(startButton,0,Qt::AlignCenter);
     mainLayout->addStretch();
@@ -127,26 +132,27 @@ void H3cWidget::initAllDeviceList() {
 void H3cWidget::initConnect() {
     connect(startButton, &QPushButton::clicked, this, &H3cWidget::startConnect);
 
-    connect(c3hProcess, &QProcess::readyReadStandardOutput, this, &H3cWidget::c3hProOutput);
-    connect(c3hProcess, &QProcess::readyReadStandardError, this, &H3cWidget::c3hProError);
-    connect(c3hProcess, static_cast<void (QProcess::*)(int)>(&QProcess::finished),
+    connect(h3cThread, &H3cThread::readyReadStandardOutput, this, &H3cWidget::c3hProOutput);
+    connect(h3cThread, &H3cThread::readyReadStandardError, this, &H3cWidget::c3hProError);
+    connect(h3cThread, static_cast<void (H3cThread::*)(int)>(&H3cThread::finished),
             this, static_cast<void (H3cWidget::*)(int)>(&H3cWidget::c3hFinished));
 }
 
 void H3cWidget::startConnect() {
     if (startButton->text()=="连接"){
-        c3hProcess->start("pkexec", QStringList() << QDir::currentPath() + "/plugins/h3c/c3hclient"
-                                                  << usernameEdit->text()
-                                                  << passwdEdit->text()
-                                                  << deviceBox->currentText()
-                                                  << reconnectEdit->text()
-                                                  << versionEdit->text());
+        h3cThread->setArgv(usernameEdit->text(),
+                           passwdEdit->text(),
+                           deviceBox->currentText(),
+                           reconnectEdit->text(),
+                           versionEdit->text());
+
+        h3cThread->start();
+
 
         setEditEnable(false);
         startButton->setText("断开连接");
     }else {
-        c3hProcess->kill();
-        c3hProcess->execute("pkexec", QStringList() << "killall" << "c3hclient");
+        h3cThread->stop();
 
         setEditEnable(true);
         startButton->setText("连接");
@@ -155,14 +161,15 @@ void H3cWidget::startConnect() {
 }
 
 void H3cWidget::c3hProOutput() {
-    qDebug() << QString(c3hProcess->readAllStandardOutput());
+    logDisplay->append(tr("<html><p>%1</html>").arg(h3cThread->readAllStandardOutput()));
 }
 
 void H3cWidget::c3hProError() {
-    qDebug() << QString(c3hProcess->readAllStandardError());
+    logDisplay->append(tr("<html><p style='background:red'>%1</html>").arg(h3cThread->readAllStandardError()));
 }
 
 void H3cWidget::c3hFinished(int exitCode) {
+    qDebug() << exitCode;
     setEditEnable(true);
     startButton->setText("连接");
 }
@@ -170,5 +177,7 @@ void H3cWidget::c3hFinished(int exitCode) {
 void H3cWidget::setEditEnable(bool enable) {
     usernameEdit->setEnabled(enable);
     passwdEdit->setEnabled(enable);
+    reconnectEdit->setEnabled(enable);
     deviceBox->setEnabled(enable);
+    versionEdit->setEnabled(enable);
 }

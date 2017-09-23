@@ -10,7 +10,9 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QTextBrowser>
 #include <QtCore/QProcess>
+#include "H3cThread.h"
 
 class H3cWidget : public QFrame{
     Q_OBJECT
@@ -26,9 +28,11 @@ private:
     QComboBox *deviceBox;
     QComboBox *langBox;
 
+    QTextBrowser *logDisplay;
+
     QPushButton *startButton;
 
-    QProcess *c3hProcess;
+    H3cThread *h3cThread;
 
     void initUI();
 

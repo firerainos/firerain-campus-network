@@ -60,9 +60,6 @@ int main(int argc, char *argv[])
 #ifndef WIN32
 	/* 检查当前是否具有root权限 */
 	if (getuid() != 0) {
-		PRINT( "抱歉，运行本客户端程序需要root权限\n");
-		PRINT( "(RedHat/Fedora下使用su命令切换为root)\n");
-		PRINT( "(Ubuntu/Debian下在命令前添加sudo)\n");
 		exit(-1);
 	}
 #endif
