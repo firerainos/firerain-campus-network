@@ -40,6 +40,3 @@ target_link_libraries(c3hclient pcap)
 
 install(TARGETS c3hclient RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/share/flyos-campus-network/h3c)
 
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libh3c.so
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/flyos-campus-network/plugins)
-

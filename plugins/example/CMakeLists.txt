@@ -20,6 +20,3 @@ set(SOURCE_FILES
 
 add_library(example SHARED ${SOURCE_FILES} ${QRC_FILES})
 target_link_libraries(example Qt5::Core Qt5::Gui Qt5::Widgets)
-
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libexample.so
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/flyos-campus-network/plugins)
