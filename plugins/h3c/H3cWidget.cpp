@@ -4,6 +4,7 @@
 
 #include <QtWidgets/QFormLayout>
 #include <QtWidgets/QLabel>
+#include <QVariant>
 #include <pcap.h>
 #include "H3cWidget.h"
 
@@ -142,7 +143,7 @@ void H3cWidget::startConnect() {
     if (startButton->text()=="连接"){
         h3cThread->setArgv(usernameEdit->text(),
                            passwdEdit->text(),
-                           deviceBox->currentText(),
+                           deviceBox->itemData(deviceBox->currentIndex()).toString(),
                            reconnectEdit->text(),
                            versionEdit->text());
 
