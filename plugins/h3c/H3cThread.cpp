@@ -3,6 +3,7 @@
 //
 
 #include <QtCore/QDir>
+#include <QtCore/QCoreApplication>
 #include "H3cThread.h"
 
 H3cThread::H3cThread() :

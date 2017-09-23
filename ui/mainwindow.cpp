@@ -35,7 +35,7 @@ mainwindow::mainwindow(QWidget *parent) :
 }
 
 void mainwindow::scanPlugins() {
-#ifndef QT_DEBUG
+#ifdef QT_DEBUG
     QDir pluginsDir("plugins");
 #else
     QDir pluginsDir(qApp->applicationDirPath() + "/../lib/flyos-campus-network/plugins");
