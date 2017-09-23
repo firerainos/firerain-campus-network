@@ -86,7 +86,6 @@ void mainwindow::loadPlugins(QString plugPath) {
 
     qDebug() << plugin->pluginsName();
 
-    qDebug() << plugin->pluginsWidget();
     stackedLayout->addWidget(plugin->pluginsWidget());
 
     leftWidget->addItem(plugin->pluginsName(), plugin->pluginsLogo());
