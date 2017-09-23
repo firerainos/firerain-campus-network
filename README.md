@@ -2,7 +2,7 @@
 
 校园网客户端
 
-集结各种第三方校园网客户端为不同的插件(c3hclient等)
+集结各种第三方校园网客户端为不同的插件([c3hclient](https://github.com/KiritoA/c3h_client.git)等)
 
 ## Build Dependencies (编译依赖)
 
