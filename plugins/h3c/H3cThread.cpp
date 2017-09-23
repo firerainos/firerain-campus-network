@@ -18,9 +18,9 @@ H3cThread::H3cThread() :
 
 void H3cThread::run() {
 #ifdef QT_DEBUG
-    QString c3hPath = QDir::currentPath() + "/plugins/h3c/c3hclient";
+    QString c3hPath = "plugins/h3c/c3hclient";
 #else
-    QString c3hPath =  QDir::currentPath() +"/../share/flyos-campus-network/h3c/plugins/h3c/c3hclient";
+    QString c3hPath =  qApp->applicationDirPath() + "/../share/flyos-campus-network/h3c/c3hclient";
 
 #endif
 
