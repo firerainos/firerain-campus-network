@@ -2,6 +2,7 @@
 // Created by linux on 17-9-23.
 //
 
+#include <QtWidgets/QLabel>
 #include "examplePlugins.h"
 
 

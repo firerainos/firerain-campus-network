@@ -15,7 +15,8 @@ set(QRC_FILES
         resources/resources.qrc)
 
 set(SOURCE_FILES
-        )
+        examplePlugins.h
+        examplePlugins.cpp)
 
 add_library(example SHARED ${SOURCE_FILES} ${QRC_FILES})
 target_link_libraries(example Qt5::Core Qt5::Gui Qt5::Widgets)
