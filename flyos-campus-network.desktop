@@ -2,11 +2,10 @@
 Version=1.0
 Type=Application
 Exec=/usr/bin/flyos-campus-network %u
-Icon=flyos-clipboard
+Icon=flyos-campus-network
 StartupNotify=true
 Terminal=false
 Categories=Utility;
-OnlyShowIn=Deepin;
 MimeType=inode/directory;
 
 Name=clipboard
