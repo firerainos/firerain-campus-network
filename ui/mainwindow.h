@@ -24,7 +24,8 @@ private:
 
     QList<PluginsInterface *> pluginsList;
 
-    void loadPlugins();
+    void scanPlugins();
+    void loadPlugins(QString plugPath);
 
 };
 

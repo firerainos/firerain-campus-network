@@ -11,6 +11,7 @@
 #include <QtWidgets/QFrame>
 
 #include <QDebug>
+#include <QtCore/QStandardPaths>
 
 mainwindow::mainwindow(QWidget *parent) :
         DMainWindow(parent) {
@@ -28,41 +29,58 @@ mainwindow::mainwindow(QWidget *parent) :
 
     this->setCentralWidget(mainFrame);
 
-    loadPlugins();
+    scanPlugins();
 }
 
-void mainwindow::loadPlugins() {
+void mainwindow::scanPlugins() {
 #ifdef QT_DEBUG
     const QDir pluginsDir(QApplication::applicationDirPath() + "/plugins");
 #else
-    const QDir pluginsDir( "/usr/lib/flyos-campus-network/plugins");
+    const QDir pluginsDir( QDir::currentPath() +"/../lib/flyos-campus-network/plugins");
 #endif
-    const QStringList plugins = pluginsDir.entryList(QDir::Files);
+
+    QStringList plugins = pluginsDir.entryList(QDir::Files);
+
+    QString confPath = (QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first());
+
+    confPath = confPath
+               + "/" + QApplication::organizationName()
+               + "/" + QApplication::applicationName()
+               + "/plugins";
+
+    plugins << QDir(confPath).entryList(QDir::Files);
+
     for (const QString file : plugins) {
         if (!QLibrary::isLibrary(pluginsDir.absoluteFilePath(file)))
             continue;
 
-        auto *loader = new QPluginLoader(pluginsDir.absoluteFilePath(file), this);
-
-        qDebug() << loader->instance();
-
-        PluginsInterface *plugin = qobject_cast<PluginsInterface *>(loader->instance());
-
-        if (!plugin)
-            continue;
-
-        qCritical() << "load plugins " + file;
-
-        pluginsList << plugin;
-
-        qDebug() << plugin->pluginsName();
-
-        stackedLayout->addWidget(plugin->pluginsWidget());
-
-        leftWidget->addItem(plugin->pluginsName(), plugin->pluginsLogo());
-
+        loadPlugins(pluginsDir.absoluteFilePath(file));
 
     }
 
+
 }
+
+void mainwindow::loadPlugins(QString plugPath) {
+
+    auto *loader = new QPluginLoader(plugPath, this);
+
+    qDebug() << loader->instance();
+
+    PluginsInterface *plugin = qobject_cast<PluginsInterface *>(loader->instance());
+
+    if (!plugin)
+        return;
+
+    qCritical() << "load plugins " + plugPath;
+
+    pluginsList << plugin;
+
+    qDebug() << plugin->pluginsName();
+
+    stackedLayout->addWidget(plugin->pluginsWidget());
+
+    leftWidget->addItem(plugin->pluginsName(), plugin->pluginsLogo());
+}
+
 
