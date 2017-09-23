@@ -28,7 +28,9 @@ set(SOURCE_FILES
         H3cWidget.cpp
         H3cWidget.h
         H3cPlugins.cpp
-        H3cPlugins.h H3cThread.cpp H3cThread.h)
+        H3cPlugins.h
+        H3cThread.cpp
+        H3cThread.h)
 
 add_library(h3c SHARED ${SOURCE_FILES} ${QRC_FILES})
 target_link_libraries(h3c Qt5::Core Qt5::Gui Qt5::Widgets pcap)
