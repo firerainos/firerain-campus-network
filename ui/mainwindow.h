@@ -7,6 +7,7 @@
 
 #include <DMainWindow>
 #include <QtWidgets/QStackedLayout>
+#include <QtWidgets/QSystemTrayIcon>
 
 #include "widgets/LeftWidget.h"
 #include "../interfaces/pluginsInterface.h"
@@ -22,12 +23,19 @@ private:
     LeftWidget *leftWidget;
     QStackedLayout *stackedLayout;
 
+    QSystemTrayIcon *systemTrayIcon;
+
     QList<PluginsInterface *> pluginsList;
+
+    bool isExit = false;
 
     void itemChange(int index);
 
     void scanPlugins();
     void loadPlugins(QString plugPath);
+
+protected:
+    virtual void closeEvent(QCloseEvent *event);
 
 };
 

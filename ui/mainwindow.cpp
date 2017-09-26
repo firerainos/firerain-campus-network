@@ -9,9 +9,11 @@
 #include <QtCore/QLibrary>
 #include <QPluginLoader>
 #include <QtWidgets/QFrame>
+#include <QCloseEvent>
 
 #include <QDebug>
 #include <QtCore/QStandardPaths>
+#include <QtWidgets/QMenu>
 
 mainwindow::mainwindow(QWidget *parent) :
         DMainWindow(parent) {
@@ -31,7 +33,33 @@ mainwindow::mainwindow(QWidget *parent) :
 
     this->setCentralWidget(mainFrame);
 
+    systemTrayIcon = new QSystemTrayIcon(QIcon(QPixmap(":/images/logo.png")), this);
+    systemTrayIcon->show();
+
+    QMenu *menu = new QMenu(this);
+    QAction *openAction = new QAction("打开主窗口", this);
+    QAction *exitAction = new QAction("退出", this);
+
+    connect(openAction, &QAction::triggered, this,&mainwindow::show);
+    connect(exitAction, &QAction::triggered, this, [=]{
+        isExit = true;
+        close();
+    });
+
+    menu->addAction(openAction);
+    menu->addAction(exitAction);
+
+    systemTrayIcon->setContextMenu(menu);
+
     scanPlugins();
+}
+
+void mainwindow::closeEvent(QCloseEvent *event) {
+    if (!isExit){
+        hide();
+        systemTrayIcon->showMessage("提示", "已最小化到系统托盘");
+        event->ignore();
+    }
 }
 
 void mainwindow::scanPlugins() {
