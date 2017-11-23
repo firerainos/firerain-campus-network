@@ -26,8 +26,6 @@ H3cWidget::H3cWidget(QWidget *parent) :
                + "/flyos-campus-network"
                + "/h3c.conf";
 
-    qDebug() << confPath;
-
     conf = new QSettings(confPath, QSettings::IniFormat);
 
     initUI();
@@ -185,11 +183,10 @@ void H3cWidget::startConnect() {
 
         h3cThread->start();
 
-
         setEditEnable(false);
         startButton->setText("断开连接");
     }else {
-        h3cThread->stop();
+        stopH3c();
 
         setEditEnable(true);
         startButton->setText("连接");
@@ -228,4 +225,8 @@ void H3cWidget::saveConfig() {
     conf->setValue("h3c/version", versionEdit->text());
     conf->setValue("h3c/rember", remeberBox->isChecked());
     conf->setValue("h3c/autoConnect", autoConnect->isChecked());
+}
+
+void H3cWidget::stopH3c() {
+    h3cThread->stop();
 }

@@ -21,6 +21,9 @@ class H3cWidget : public QFrame{
 public:
     explicit H3cWidget(QWidget *parent = nullptr);
 
+    void startH3c();
+    void stopH3c();
+
 private:
     QLineEdit *usernameEdit;
     QLineEdit *passwdEdit;

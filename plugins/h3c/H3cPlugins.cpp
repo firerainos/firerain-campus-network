@@ -20,3 +20,9 @@ QWidget *H3cPlugins::pluginsWidget() {
 
     return h3cWidget;
 }
+
+
+void H3cPlugins::pluginsClose() {
+    if (h3cWidget != nullptr)
+        h3cWidget->stopH3c();
+}

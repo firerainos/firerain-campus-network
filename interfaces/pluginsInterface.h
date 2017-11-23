@@ -20,6 +20,6 @@ public:
 
 };
 
-Q_DECLARE_INTERFACE(PluginsInterface, "com.flyos.campus.network/1.0")
+Q_DECLARE_INTERFACE(PluginsInterface, "com.flyos.campus.network/1.1")
 
 #endif //FLYOS_CAMPUS_NETWORK_PLUGINSINTERFACE_H

@@ -13,7 +13,7 @@ class H3cPlugins : public QObject,public PluginsInterface{
 
     Q_OBJECT
     Q_INTERFACES(PluginsInterface)
-    Q_PLUGIN_METADATA(IID "com.flyos.campus.network/1.0" FILE "h3c.json")
+    Q_PLUGIN_METADATA(IID "com.flyos.campus.network/1.1" FILE "h3c.json")
 
 public:
     QString pluginsName() override;
@@ -21,6 +21,8 @@ public:
     QPixmap pluginsLogo() override;
 
     QWidget *pluginsWidget() override;
+
+    void pluginsClose() override;
 
 private:
     H3cWidget *h3cWidget;

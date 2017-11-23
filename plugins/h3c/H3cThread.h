@@ -20,6 +20,8 @@ public:
     QString readAllStandardError();
 
     void stop();
+    bool checkC3hExist();
+
 
 protected:
     virtual void run();

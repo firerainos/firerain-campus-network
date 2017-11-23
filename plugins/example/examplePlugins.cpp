@@ -18,3 +18,7 @@ QPixmap ExamplePlugins::pluginsLogo() {
 QWidget *ExamplePlugins::pluginsWidget() {
     return new QLabel("Example");
 }
+
+void ExamplePlugins::pluginsClose() {
+
+}

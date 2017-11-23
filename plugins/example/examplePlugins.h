@@ -12,7 +12,7 @@ class ExamplePlugins : public QObject,public PluginsInterface{
 
     Q_OBJECT
     Q_INTERFACES(PluginsInterface)
-    Q_PLUGIN_METADATA(IID "com.flyos.campus.network/1.0" FILE "example.json")
+    Q_PLUGIN_METADATA(IID "com.flyos.campus.network/1.1" FILE "example.json")
 
 public:
     QString pluginsName() override;
@@ -21,7 +21,7 @@ public:
 
     QWidget *pluginsWidget() override;
 
-
+    void pluginsClose() override;
 };
 
 

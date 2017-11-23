@@ -34,6 +34,8 @@ private:
     void scanPlugins();
     void loadPlugins(QString plugPath);
 
+    void closePlugins();
+
 protected:
     virtual void closeEvent(QCloseEvent *event);
 

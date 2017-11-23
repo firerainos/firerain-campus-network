@@ -60,6 +60,8 @@ void mainwindow::closeEvent(QCloseEvent *event) {
         systemTrayIcon->showMessage("提示", "已最小化到系统托盘");
         event->ignore();
     }
+
+    closePlugins();
 }
 
 void mainwindow::scanPlugins() {
@@ -123,4 +125,10 @@ void mainwindow::loadPlugins(QString plugPath) {
 
 void mainwindow::itemChange(int index) {
     stackedLayout->setCurrentIndex(index);
+}
+
+void mainwindow::closePlugins() {
+    foreach(PluginsInterface *plug,pluginsList){
+            plug->pluginsClose();
+        }
 }
