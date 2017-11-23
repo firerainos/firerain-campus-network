@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
         app.loadTranslator();
         app.setApplicationDisplayName("校园网客户端");
         app.setApplicationName(DApplication::translate("flyos-campus-network","校园网客户端"));
-        app.setApplicationVersion("0.0.1");
+        app.setApplicationVersion("1.0.0");
         app.setOrganizationName("flyos");
         app.setOrganizationDomain("fly-os.xyz");
         app.setApplicationDescription(DApplication::translate("MainWindow", "FlyOS校园网客户端") + "\n");
