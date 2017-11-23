@@ -12,6 +12,8 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QTextBrowser>
 #include <QtCore/QProcess>
+#include <QtWidgets/QCheckBox>
+#include <QtCore/QSettings>
 #include "H3cThread.h"
 
 class H3cWidget : public QFrame{
@@ -28,11 +30,19 @@ private:
     QComboBox *deviceBox;
     QComboBox *langBox;
 
+    QCheckBox *remeberBox;
+    QCheckBox *autoConnect;
+
     QTextBrowser *logDisplay;
 
     QPushButton *startButton;
 
     H3cThread *h3cThread;
+
+    QString confPath;
+
+    QSettings *conf;
+
 
     void initUI();
 
@@ -41,6 +51,8 @@ private:
     void initAllDeviceList();
 
     void setEditEnable(bool enable);
+
+    void saveConfig();
 
 private Q_SLOT:
 

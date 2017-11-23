@@ -10,11 +10,25 @@
 
 #include <QDebug>
 #include <QtCore/QDir>
+#include <QtCore/QStandardPaths>
+#include <QApplication>
 
 H3cWidget::H3cWidget(QWidget *parent) :
     QFrame(parent){
 
     h3cThread = new H3cThread;
+
+
+    confPath = (QStandardPaths::standardLocations(QStandardPaths::ConfigLocation).first());
+
+    confPath = confPath
+               + "/" + QApplication::organizationName()
+               + "/flyos-campus-network"
+               + "/h3c.conf";
+
+    qDebug() << confPath;
+
+    conf = new QSettings(confPath, QSettings::IniFormat);
 
     initUI();
 
@@ -44,9 +58,9 @@ void H3cWidget::initUI() {
     versionLabel->setFixedWidth(80);
     reconnectLabel->setFixedWidth(80);
 
-    usernameEdit = new QLineEdit(this);
-    passwdEdit = new QLineEdit(this);
-    reconnectEdit = new QLineEdit("0",this);
+    usernameEdit = new QLineEdit(conf->value("h3c/username","").toString() ,this);
+    passwdEdit = new QLineEdit(conf->value("h3c/passwd","").toString() ,this);
+    reconnectEdit = new QLineEdit(conf->value("h3c/reconnect","0").toString() ,this);
 
     usernameEdit->setFixedWidth(200);
     passwdEdit->setFixedWidth(200);
@@ -55,7 +69,7 @@ void H3cWidget::initUI() {
     deviceBox = new QComboBox(this);
     deviceBox->setFixedWidth(200);
 
-    versionEdit = new QLineEdit("EN\x11V7.00-0102",this);
+    versionEdit = new QLineEdit(conf->value("h3c/version","EN\x11V7.00-0102").toString(),this);
     versionEdit->setFixedWidth(200);
 
     startButton = new QPushButton("连接",this);
@@ -65,11 +79,20 @@ void H3cWidget::initUI() {
     logDisplay->setMinimumWidth(500);
     logDisplay->setVisible(false);
 
+    remeberBox = new QCheckBox("记住密码", this);
+    autoConnect = new QCheckBox("自动登录", this);
+
+    autoConnect->setEnabled(false);
+
+    remeberBox->setChecked(conf->value("h3c/rember", false).toBool());
+    autoConnect->setChecked(conf->value("h3c/autoConnect", false).toBool());
+
     auto *usernameLayout = new QHBoxLayout(this);
     auto *passwdLayout = new QHBoxLayout(this);
     auto *reconnectLayout = new QHBoxLayout(this);
     auto *deviceLayout = new QHBoxLayout(this);
     auto *versionLayout = new QHBoxLayout(this);
+    auto *checkBoxLayout = new QHBoxLayout(this);
 
     usernameLayout->addStretch();
     usernameLayout->addWidget(usernameLabel);
@@ -96,6 +119,12 @@ void H3cWidget::initUI() {
     versionLayout->addWidget(versionEdit);
     versionLayout->addStretch();
 
+    checkBoxLayout->addStretch();
+    checkBoxLayout->addWidget(remeberBox);
+    checkBoxLayout->addSpacing(50);
+    checkBoxLayout->addWidget(autoConnect);
+    checkBoxLayout->addStretch();
+
     mainLayout->addStretch();
     mainLayout->addWidget(h3cLogo,0,Qt::AlignCenter);
     mainLayout->addSpacing(50);
@@ -104,10 +133,12 @@ void H3cWidget::initUI() {
     mainLayout->addLayout(reconnectLayout);
     mainLayout->addLayout(deviceLayout);
     mainLayout->addLayout(versionLayout);
+    mainLayout->addLayout(checkBoxLayout);
     mainLayout->addWidget(logDisplay, 1);
     mainLayout->addSpacing(20);
     mainLayout->addWidget(startButton,0,Qt::AlignCenter);
     mainLayout->addStretch();
+
 }
 
 void H3cWidget::initAllDeviceList() {
@@ -122,6 +153,8 @@ void H3cWidget::initAllDeviceList() {
             deviceBox->addItem(alldevs->description, alldevs->name);
 #else
             deviceBox->addItem(alldevs->name,alldevs->name);
+            if (conf->value("h3c/device","").toString() == alldevs->name)
+                deviceBox->setCurrentIndex(i);
 #endif
             alldevs = alldevs->next;
             i++;
@@ -141,6 +174,9 @@ void H3cWidget::initConnect() {
 
 void H3cWidget::startConnect() {
     if (startButton->text()=="连接"){
+        if (remeberBox->isChecked())
+            saveConfig();
+
         h3cThread->setArgv(usernameEdit->text(),
                            passwdEdit->text(),
                            deviceBox->itemData(deviceBox->currentIndex()).toString(),
@@ -181,4 +217,15 @@ void H3cWidget::setEditEnable(bool enable) {
     reconnectEdit->setEnabled(enable);
     deviceBox->setEnabled(enable);
     versionEdit->setEnabled(enable);
+}
+
+void H3cWidget::saveConfig() {
+
+    conf->setValue("h3c/username", usernameEdit->text());
+    conf->setValue("h3c/passwd", passwdEdit->text());
+    conf->setValue("h3c/reconnect", reconnectEdit->text());
+    conf->setValue("h3c/device", deviceBox->currentData(deviceBox->currentIndex()).toString());
+    conf->setValue("h3c/version", versionEdit->text());
+    conf->setValue("h3c/rember", remeberBox->isChecked());
+    conf->setValue("h3c/autoConnect", autoConnect->isChecked());
 }
