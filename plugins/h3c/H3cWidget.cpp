@@ -60,6 +60,8 @@ void H3cWidget::initUI() {
     passwdEdit = new QLineEdit(conf->value("h3c/passwd","").toString() ,this);
     reconnectEdit = new QLineEdit(conf->value("h3c/reconnect","0").toString() ,this);
 
+    passwdEdit->setEchoMode(QLineEdit::Password);
+
     usernameEdit->setFixedWidth(200);
     passwdEdit->setFixedWidth(200);
     reconnectEdit->setFixedWidth(200);
