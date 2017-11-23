@@ -15,6 +15,8 @@ public:
     virtual QPixmap pluginsLogo()=0;
 //    插件主widget。用于显示在主程序上插件对应的GUI
     virtual QWidget *pluginsWidget()=0;
+//    程序退出时调用
+    virtual QWidget *pluginsClose()=0;
 
 };
 

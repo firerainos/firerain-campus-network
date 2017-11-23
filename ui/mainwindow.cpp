@@ -107,8 +107,10 @@ void mainwindow::loadPlugins(QString plugPath) {
 
     PluginsInterface *plugin = qobject_cast<PluginsInterface *>(loader->instance());
 
-    if (!plugin)
+    if (!plugin){
+        loader->unload();
         return;
+    }
 
     qCritical() << "load plugins " + plugPath;
 
@@ -122,5 +124,3 @@ void mainwindow::loadPlugins(QString plugPath) {
 void mainwindow::itemChange(int index) {
     stackedLayout->setCurrentIndex(index);
 }
-
-
