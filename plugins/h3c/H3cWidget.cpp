@@ -23,7 +23,7 @@ H3cWidget::H3cWidget(QWidget *parent) :
 
     confPath = confPath
                + "/" + QApplication::organizationName()
-               + "/flyos-campus-network"
+               + "/firerain-campus-network"
                + "/h3c.conf";
 
     conf = new QSettings(confPath, QSettings::IniFormat);

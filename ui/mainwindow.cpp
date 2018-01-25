@@ -68,7 +68,7 @@ void mainwindow::scanPlugins() {
 #ifdef QT_DEBUG
     QDir pluginsDir("plugins");
 #else
-    QDir pluginsDir(qApp->applicationDirPath() + "/../lib/flyos-campus-network/plugins");
+    QDir pluginsDir(qApp->applicationDirPath() + "/../lib/firerain-campus-network/plugins");
 #endif
 
     QStringList plugins = pluginsDir.entryList(QDir::Files);

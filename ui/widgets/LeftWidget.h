@@ -2,8 +2,8 @@
 // Created by linux on 17-9-13.
 //
 
-#ifndef FLYOS_CAMPUS_NETWORK_LEFTWIDGET_H
-#define FLYOS_CAMPUS_NETWORK_LEFTWIDGET_H
+#ifndef FIRERAIN_CAMPUS_NETWORK_LEFTWIDGET_H
+#define FIRERAIN_CAMPUS_NETWORK_LEFTWIDGET_H
 
 
 #include <QtWidgets/QWidget>
@@ -38,4 +38,4 @@ virtual void mouseReleaseEvent(QMouseEvent *event);
 
 };
 
-#endif //FLYOS_CAMPUS_NETWORK_LEFTWIDGET_H
+#endif //FIRERAIN_CAMPUS_NETWORK_LEFTWIDGET_H

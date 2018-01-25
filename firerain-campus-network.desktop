@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Exec=/usr/bin/flyos-campus-network %u
+Exec=/usr/bin/firerain-campus-network %u
 Icon=flyos-campus-network
 StartupNotify=true
 Terminal=false

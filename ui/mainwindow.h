@@ -2,8 +2,8 @@
 // Created by linux on 17-9-13.
 //
 
-#ifndef FLYOS_CAMPUS_NETWORK_MAINWINDOW_H
-#define FLYOS_CAMPUS_NETWORK_MAINWINDOW_H
+#ifndef FIRERAIN_CAMPUS_NETWORK_MAINWINDOW_H
+#define FIRERAIN_CAMPUS_NETWORK_MAINWINDOW_H
 
 #include <DMainWindow>
 #include <QtWidgets/QStackedLayout>
@@ -42,4 +42,4 @@ protected:
 };
 
 
-#endif //FLYOS_CAMPUS_NETWORK_MAINWINDOW_H
+#endif //FIRERAIN_CAMPUS_NETWORK_MAINWINDOW_H

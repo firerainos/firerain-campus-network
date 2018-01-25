@@ -2,8 +2,8 @@
 // Created by linux on 17-9-22.
 //
 
-#ifndef FLYOS_CAMPUS_NETWORK_H3CPLUGINS_H
-#define FLYOS_CAMPUS_NETWORK_H3CPLUGINS_H
+#ifndef FIRERAIN_CAMPUS_NETWORK_H3CPLUGINS_H
+#define FIRERAIN_CAMPUS_NETWORK_H3CPLUGINS_H
 
 
 #include "../../interfaces/pluginsInterface.h"
@@ -13,7 +13,7 @@ class H3cPlugins : public QObject,public PluginsInterface{
 
     Q_OBJECT
     Q_INTERFACES(PluginsInterface)
-    Q_PLUGIN_METADATA(IID "com.flyos.campus.network/1.1" FILE "h3c.json")
+    Q_PLUGIN_METADATA(IID "com.firerain.campus.network/1.1" FILE "h3c.json")
 
 public:
     QString pluginsName() override;
@@ -30,4 +30,4 @@ private:
 };
 
 
-#endif //FLYOS_CAMPUS_NETWORK_H3CPLUGINS_H
+#endif //FIRERAIN_CAMPUS_NETWORK_H3CPLUGINS_H

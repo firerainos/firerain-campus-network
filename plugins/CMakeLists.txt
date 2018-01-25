@@ -11,4 +11,4 @@ add_subdirectory(h3c)
 #add_subdirectory(example)
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libh3c.so
-        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/flyos-campus-network/plugins)
+        DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/firerain-campus-network/plugins)

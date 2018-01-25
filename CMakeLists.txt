@@ -31,9 +31,9 @@ include_directories(${DTK_INCLUDE_DIRS})
 
 add_subdirectory(plugins)
 
-add_executable(flyos-campus-network  ${SOURCE_FILES} ${QRC_FILES})
-target_link_libraries(flyos-campus-network Qt5::Core Qt5::Gui Qt5::Widgets ${DTK_LIBRARIES})
+add_executable(firerain-campus-network  ${SOURCE_FILES} ${QRC_FILES})
+target_link_libraries(firerain-campus-network Qt5::Core Qt5::Gui Qt5::Widgets ${DTK_LIBRARIES})
 
-install(TARGETS flyos-campus-network RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-install(FILES flyos-campus-network.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
-install(FILES images/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/64x64/apps RENAME flyos-campus-network.png)
+install(TARGETS firerain-campus-network RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(FILES firerain-campus-network.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+install(FILES images/logo.png DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/64x64/apps RENAME firerain-campus-network.png)

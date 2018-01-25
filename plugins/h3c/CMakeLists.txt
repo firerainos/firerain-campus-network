@@ -38,5 +38,5 @@ target_link_libraries(h3c Qt5::Core Qt5::Gui Qt5::Widgets pcap)
 add_executable(c3hclient ${C3H_SOURCE_FILES})
 target_link_libraries(c3hclient pcap)
 
-install(TARGETS c3hclient RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/share/flyos-campus-network/h3c)
+install(TARGETS c3hclient RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/share/firerain-campus-network/h3c)
 

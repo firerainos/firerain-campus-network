@@ -2,8 +2,8 @@
 // Created by linux on 17-9-22.
 //
 
-#ifndef FLYOS_CAMPUS_NETWORK_PLUGINSINTERFACE_H
-#define FLYOS_CAMPUS_NETWORK_PLUGINSINTERFACE_H
+#ifndef FIRERAIN_CAMPUS_NETWORK_PLUGINSINTERFACE_H
+#define FIRERAIN_CAMPUS_NETWORK_PLUGINSINTERFACE_H
 
 #include <QtCore/QObject>
 
@@ -20,6 +20,6 @@ public:
 
 };
 
-Q_DECLARE_INTERFACE(PluginsInterface, "com.flyos.campus.network/1.1")
+Q_DECLARE_INTERFACE(PluginsInterface, "com.firerain.campus.network/1.1")
 
-#endif //FLYOS_CAMPUS_NETWORK_PLUGINSINTERFACE_H
+#endif //FIRERAIN_CAMPUS_NETWORK_PLUGINSINTERFACE_H

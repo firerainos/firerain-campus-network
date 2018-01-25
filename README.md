@@ -1,4 +1,4 @@
-# flyos-campus-network
+# firerain-campus-network
 
 校园网客户端
 
@@ -27,7 +27,7 @@
 
 ## Usage (使用)
 
-* flyos-campus-network 或者 点击启动器上的校园网客户端
+* firerain-campus-network 或者 点击启动器上的校园网客户端
 
 ## 插件开发
 
@@ -37,8 +37,8 @@
 
 ## 插件加载目录
 
-* 系统 ${CMAKE_INSTALL_PREFIX}/lib/flyos-campus-network/plugins
-* 用户主目录 ~/.conf/flyos/flyos-campus-network/plugins (用于加载第三方插件)
+* 系统 ${CMAKE_INSTALL_PREFIX}/lib/firerain-campus-network/plugins
+* 用户主目录 ~/.conf/firerain/firerain-campus-network/plugins (用于加载第三方插件)
 
 ## License
 
