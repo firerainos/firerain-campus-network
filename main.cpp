@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
         app.loadTranslator();
         app.setApplicationDisplayName("校园网客户端");
         app.setApplicationName(DApplication::translate("firerain-campus-network","校园网客户端"));
-        app.setApplicationVersion("1.0.0");
+        app.setApplicationVersion("1.0.1");
         app.setOrganizationName("firerain");
         app.setOrganizationDomain("firerain.xyz");
         app.setApplicationDescription(DApplication::translate("MainWindow", "校园网客户端") + "\n");
